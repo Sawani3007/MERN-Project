@@ -4,10 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stopwatch + Timer</title>
-  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <div id="timer-cointainer">
     <h2>⏱ Stopwatch</h2>
     <p id="timer-text">00:00:00</p>
@@ -19,24 +17,17 @@
     <button onclick="handleClearLaps()">Clear Laps</button>
   </div>
 
-  <div id="lap-section">
-    <h3>Laps</h3>
-    <div id="root"></div>
-  </div>
+  <h2>⏲️ Timer</h2>
+  <label>Minutes: <input type="number" id="timerMin" value="0"></label>
+  <label>Seconds: <input type="number" id="timerSec" value="30"></label>
+  <p id="countdown-text">00:00</p>
+  <button onclick="startCountdown()">Start Timer</button>
+  <button onclick="pauseCountdown()">Pause Timer</button>
+  <button onclick="resumeCountdown()">Resume Timer</button>
+  <button onclick="resetCountdown()">Reset Timer</button>
 
-  <hr />
+  <div id="root"></div>
 
-  <div id="countdown-container">
-    <h2>⏲️ Timer</h2>
-    <label>Minutes: <input type="number" id="timerMin" value="0" /></label>
-    <label>Seconds: <input type="number" id="timerSec" value="30" /></label>
-    <p id="countdown-text">00:00:00</p>
-    <button onclick="startCountdown()">Start Timer</button>
-    <button onclick="pauseCountdown()">Pause Timer</button>
-    <button onclick="resumeCountdown()">Resume Timer</button>
-    <button onclick="resetCountdown()">Reset Timer</button>
-  </div>
-
-  <script src="timerApp.js" defer></script>
+  <script src="./timerApp.js"></script>
 </body>
 </html>

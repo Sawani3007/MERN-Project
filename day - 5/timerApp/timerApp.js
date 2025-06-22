@@ -2,23 +2,25 @@ const timerTextElem = document.getElementById("timer-text");
 const countdownText = document.getElementById("countdown-text");
 const lapsContainer = document.getElementById("root");
 
-// Stopwatch variables
+// Stopwatch Variables
 let timeInSec = 0;
 let stopwatchInterval = null;
 
-// Timer (Countdown) variables
+// Countdown Timer Variables
 let timerSecLeft = 0;
 let countdownInterval = null;
 
-// Format function for both stopwatch and timer
+// Format function (shared)
 const format = (sec) => {
   const s = sec % 60;
   const m = Math.floor(sec / 60) % 60;
   const h = Math.floor(sec / 3600);
-  return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s
+    .toString()
+    .padStart(2, "0")}`;
 };
 
-// Stopwatch Functions
+// Stopwatch Handlers
 const handleStart = () => {
   if (!stopwatchInterval) {
     stopwatchInterval = setInterval(() => {
@@ -34,7 +36,7 @@ const handlePause = () => {
 };
 
 const handleResume = () => {
-  handleStart(); // Reuse same logic
+  handleStart(); // Just reuses the start logic
 };
 
 const handleReset = () => {
@@ -55,7 +57,7 @@ const handleClearLaps = () => {
   lapsContainer.innerHTML = "";
 };
 
-// Timer (Countdown) Functions
+// Timer (Countdown) Handlers
 const startCountdown = () => {
   const min = parseInt(document.getElementById("timerMin").value) || 0;
   const sec = parseInt(document.getElementById("timerSec").value) || 0;
@@ -101,7 +103,7 @@ const resetCountdown = () => {
   clearInterval(countdownInterval);
   countdownInterval = null;
   timerSecLeft = 0;
-  countdownText.innerText = "00:00:00";
+  countdownText.innerText = "00:00";
   document.getElementById("timerMin").value = 0;
   document.getElementById("timerSec").value = 30;
 };
