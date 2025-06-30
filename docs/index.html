@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stopwatch + Timer</title>
+</head>
+<body>
+  <div id="timer-cointainer">
+    <h2>⏱ Stopwatch</h2>
+    <p id="timer-text">00:00:00</p>
+    <button onclick="handleStart()">Start</button>
+    <button onclick="handleReset()">Reset</button>
+    <button onclick="handlePause()">Pause</button>
+    <button onclick="handleResume()">Resume</button>
+    <button onclick="handleLap()">Lap</button>
+    <button onclick="handleClearLaps()">Clear Laps</button>
+  </div>
+
+  <h2>⏲️ Timer</h2>
+  <label>Minutes: <input type="number" id="timerMin" value="0"></label>
+  <label>Seconds: <input type="number" id="timerSec" value="30"></label>
+  <p id="countdown-text">00:00</p>
+  <button onclick="startCountdown()">Start Timer</button>
+  <button onclick="pauseCountdown()">Pause Timer</button>
+  <button onclick="resumeCountdown()">Resume Timer</button>
+  <button onclick="resetCountdown()">Reset Timer</button>
+
+  <div id="root"></div>
+
+  <script src="./timerApp.js"></script>
+</body>
+</html>
