@@ -1,46 +1,80 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-function Timer() {
+const App = () => {
     const [timeInSec, setTimeInSec] = useState(0);
+    const [laps, setLaps] = useState([]);
     const [isTimerRunning, setIsTimerRunning] = useState(true);
-    const intervalRef = useRef(null);
 
     useEffect(() => {
-        console.log("========= setting interval =====");
+        console.log("Timer running state changed", isTimerRunning);
 
-        intervalRef.current = setInterval(() => {
-            setTimeInSec((prevTime) => prevTime + 1);
-        }, 1000);
+        let intervalId = null;
+        if (isTimerRunning) {
+            intervalId = setInterval(() => {
+                // setTimeInSec((prev) => prev + 1);
+                setTimeInSec((prev) => {
+                    return prev + 1;
+                });
+            }, 5); //st1
+        }
 
         return () => {
-            clearInterval(intervalRef.current);
+            console.log("Cleaning up interval...");
+            clearInterval(intervalId);
         };
-    }, []);
+    }, [isTimerRunning]);
 
     const handlePause = () => {
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
+        if (isTimerRunning) {
+            setIsTimerRunning(false);
         }
-        setIsTimerRunning(false);
     };
 
     const handlePlay = () => {
         if (!isTimerRunning) {
-            intervalRef.current = setInterval(() => {
-                setTimeInSec((prevTime) => prevTime + 1);
-            }, 1000);
             setIsTimerRunning(true);
         }
     };
 
+    const handleLap = () => {
+        console.log("Lap time", timeInSec);
+        setLaps((prev) => {
+            const temp = [...prev];
+            temp.push(timeInSec);
+            return temp;
+        });
+    };
+
+    const handleReset = () => {
+        setTimeInSec(0);
+        setIsTimerRunning(false);
+    };
+
+    const hours = Math.floor(timeInSec / 3600) // derived state variable
+        .toString()
+        .padStart(2, "0");
+
+    const minutes = Math.floor((timeInSec % 3600) / 60)
+        .toString()
+        .padStart(2, "0");
+
+    const seconds = (timeInSec % 60).toString().padStart(2, "0");
+
     return (
         <div>
-            <h1>{timeInSec} sec</h1>
-            <button onClick={handlePause}>Pause</button>
-            <button onClick={handlePlay}>Play</button>
+            <h2>
+                {hours}:{minutes}:{seconds}
+            </h2>
+            {isTimerRunning ? <button onClick={handlePause}>PAUSE</button> : <button onClick={handlePlay}>PLAY</button>}
+            <button onClick={handleLap}>LAP</button>
+            <button onClick={handleReset}>RESET</button>
+            <div>
+                {laps.map((elem, idx) => {
+                    return <p key={idx}>{elem}</p>;
+                })}
+            </div>
         </div>
     );
-}
+};
 
-export default Timer;
+export default App;
